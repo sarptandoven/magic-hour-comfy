@@ -8,3 +8,22 @@ __pycache__/
 !.env.example
 *.pem
 *.key
+
+# Local Python environments and tooling caches
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ComfyUI/generated artifacts and large model files
+output/
+outputs/
+input/
+temp/
+models/
+*.ckpt
+*.safetensors
+*.pt
+*.pth
+*.onnx

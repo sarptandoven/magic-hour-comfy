@@ -1,3 +1,4 @@
+from __future__ import annotations
 
 import copy, sys
 from typing import Any
@@ -58,7 +59,9 @@ def _bnb_quant(fp: nn.Module, bits: int):
     return m.to(fp.device) if hasattr(fp, "device") else m
 
 
-class _Cascade(nn.Module):
+_BaseModule = nn.Module if nn is not None else object
+
+class _Cascade(_BaseModule):
     def __init__(self, fp, q, n):
         super().__init__()
         self.fp,self.q,self.n = fp,q,int(n)

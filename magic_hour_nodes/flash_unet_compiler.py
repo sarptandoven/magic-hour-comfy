@@ -6,9 +6,14 @@ Magic-Hour Flash-UNet Compiler
 """
 
 from __future__ import annotations
-import hashlib, inspect, sys, torch
-from torch import nn
+import hashlib, inspect, sys
 from typing import Dict
+
+try:
+    import torch
+    from torch import nn
+except ModuleNotFoundError:
+    torch, nn = None, None
 
 # ── in-process cache ──────────────────────────────────────────────────────────
 _COMPILED_CACHE: Dict[str, nn.Module] = {}
@@ -74,6 +79,13 @@ class MagicHourFlashUNetCompiler:
     CATEGORY     = "magic hour/model"
 
     def run(self, unet: nn.Module, force_recompile: bool = False):
+        if torch is None:
+            print("[Flash-UNet] PyTorch unavailable; returning original UNet", file=sys.stderr)
+            return (unet,)
+        if not torch.cuda.is_available():
+            print("[Flash-UNet] CUDA unavailable; returning original UNet", file=sys.stderr)
+            return (unet,)
+
         # --- PRE-LOAD on GPU *before* anything else touches it -----------
         unet = unet.to(device="cuda", non_blocking=True)
 

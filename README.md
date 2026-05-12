@@ -6,7 +6,7 @@ Magic Hour ComfyUI custom nodes for AI video/image generation experiments.
 
 This repository currently contains one ComfyUI custom-node pack:
 
-- `magic_hour_nodes_clean 4/`
+- `magic_hour_nodes/`
   - `MagicHourFlashUNetCompiler`
   - `MagicHourSmartQuantCascade`
   - `MagicHourSamplerCustomAdvancedEarlyExit`
@@ -38,7 +38,7 @@ Optional features require additional packages:
 A lightweight syntax check can be run without launching ComfyUI:
 
 ```bash
-python3 -m compileall "magic_hour_nodes_clean 4"
+python3 -m compileall "magic_hour_nodes"
 ```
 
 Generated caches, local environment files, and credentials should stay out of Git.
